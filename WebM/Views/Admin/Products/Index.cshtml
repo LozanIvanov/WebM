@@ -1,0 +1,45 @@
+﻿@model List<Web.Database.Models.Product>
+@{
+    Layout = "~/Views/SharedAdmin/_AdminLayout.cshtml";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <a href="/Admin/Products/Create" class="btn btn-info">Add new Product</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Discription</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Image</th>
+                    <th>Color</th>
+                    <th>Size</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Description</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Price</td>
+                        <td>@item.Category.Name</td>
+                        <td>
+                            <img src="@item.MainImage" style=" width: 100px; height: 100px">
+                        </td>
+                        <td>@item.Color.Name</td>
+                        <td>@item.Size.Name</td>
+                        <td>
+                            <a href="/Admin/Products/Edit/@item.Id" class="btn btn-info">Edit</a>
+                            <a href="/Admin/Products/Delete/@item.Id"class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

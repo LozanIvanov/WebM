@@ -1,0 +1,28 @@
+﻿@using Web.Database.Models;
+@Model List<Category>;
+
+@{
+    Layout = "~/Views/SharedAdmin/_AdminLayout.cshtml";
+}
+<form method="post">
+    <div class="row">
+        <div class="col-sm-4">
+            <div>
+                Category Name<input type="text"name="Name" class="form-control"/>
+            </div>
+            <div>
+                Parent:
+                <select name="ParentId" class="form-control">
+                    <option>Without</option>
+                    @foreach(var category in Model)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <button class="btn btn-info">Save</button>
+        </div>
+    </div>
+</form>

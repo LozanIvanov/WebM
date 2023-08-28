@@ -1,0 +1,34 @@
+﻿@model Web.Dal.Models.CategoryEditViewModel;
+
+
+@{
+    Layout = "~/Views/SharedAdmin/_AdminLayout.cshtml";
+}
+<form method="post">
+    <div class="row">
+        <div class="col-sm-4">
+            <div>
+                Category Name<input type="text" name="Name" class="form-control" value="@Model.SelectedCategory.Name" />
+            </div>
+            <div>
+                Parent:
+                <select name="ParentId" class="form-control">
+                    <option>Without</option>
+                    @foreach(var category in Model.Categories)
+                    {
+                    <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <button class="btn btn-info">Save</button>
+        </div>
+    </div>
+</form>
+@section scripts{
+<script>
+    $(function(){
+        $('select[name="ParentId"]').val(@Model.SelectedCategory.ParentId)
+    });
+</script>}

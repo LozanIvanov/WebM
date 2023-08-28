@@ -1,0 +1,44 @@
+﻿@using Web.Dal.Models.Admin;
+@model List<UserViewModel>;
+
+
+@{
+    Layout = "~/Views/SharedAdmin/_AdminLayout.cshtml";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                    Username
+                </td>
+                <td>
+                    Email
+                </td>
+                <td>
+                    Email Confirmed
+                </td>
+                <td>
+                    Roles
+                </td>
+            </tr>
+            @foreach (var user in Model)
+            {
+                    <tr>
+                        <td>
+                            @user.UserName
+                        </td>
+                        <td>
+                            @user.Email
+                        </td>
+                        <td>
+                            @(user.EmailConfirmed ? "Yes" : "No")
+                        </td>
+                        <td>
+                            @string.Join(", ", user.Roles)
+                        </td>
+                    </tr>
+            }
+        </table>
+    </div>
+</div>

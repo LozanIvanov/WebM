@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebM", "WebM\WebM.csproj", "{7F2BE960-976F-40D1-81F5-72C512190A10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Database", "Web.Database\Web.Database.csproj", "{037C9F88-EB15-4B5F-AEDC-731FDB07DC28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Dal", "Web.Dal\Web.Dal.csproj", "{67790A50-AD3B-44A1-958A-7E23D58DA772}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7F2BE960-976F-40D1-81F5-72C512190A10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F2BE960-976F-40D1-81F5-72C512190A10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F2BE960-976F-40D1-81F5-72C512190A10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F2BE960-976F-40D1-81F5-72C512190A10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{037C9F88-EB15-4B5F-AEDC-731FDB07DC28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{037C9F88-EB15-4B5F-AEDC-731FDB07DC28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{037C9F88-EB15-4B5F-AEDC-731FDB07DC28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{037C9F88-EB15-4B5F-AEDC-731FDB07DC28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67790A50-AD3B-44A1-958A-7E23D58DA772}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67790A50-AD3B-44A1-958A-7E23D58DA772}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67790A50-AD3B-44A1-958A-7E23D58DA772}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67790A50-AD3B-44A1-958A-7E23D58DA772}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {29E32625-457C-4837-9605-F9575916D5BE}
+	EndGlobalSection
+EndGlobal
