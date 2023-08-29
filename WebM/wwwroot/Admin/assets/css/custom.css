@@ -150,5 +150,8 @@ min-height: 80px;
 
  
 }
+.table-image {
+    max-width: 100px;
+}
 
 

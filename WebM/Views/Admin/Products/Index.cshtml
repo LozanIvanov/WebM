@@ -29,7 +29,11 @@
                         <td>@item.Price</td>
                         <td>@item.Category.Name</td>
                         <td>
-                            <img src="@item.MainImage" style=" width: 100px; height: 100px">
+                            @if (item.MainImage != null)
+                            {
+                               // <img src="@item.MainImage" style=" width: 100px; height: 100px">
+                                <img class="table-image"src="@item.MainImage" style=" width: 100px; height: 100px">
+                            }
                         </td>
                         <td>@item.Color.Name</td>
                         <td>@item.Size.Name</td>
