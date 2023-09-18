@@ -7,6 +7,7 @@ using Web.Database.Models;
 
 namespace WebM.Controllers.Admin
 {
+   // [Route("Admin/Products")]
     [Authorize(Roles = "Admin,Manager")]
     public class ProductController : Controller
     {
@@ -23,7 +24,8 @@ namespace WebM.Controllers.Admin
             this.colorService = colorService;
             this.sizeService=sizeService;
         }
-        [Route("Admin/Products")]
+          [Route("Admin/Products")]
+          [HttpGet]
         public IActionResult Index()
         {
             var result = productService.GetProducts();
@@ -44,6 +46,11 @@ namespace WebM.Controllers.Admin
         [Route("Admin/Products/Create")]
         public async Task<IActionResult> Create(ProductViewModel product)
         {
+            //string filePath="no-image.png";
+            //if (product.MainImage != null)
+            //{
+            //    filePath=await UploadFile(product.MainImage)
+            //}
             var p = new Product();
             p.Name = product.Name;
             p.Description = product.Description;
@@ -75,14 +82,14 @@ namespace WebM.Controllers.Admin
         }
         [HttpGet]
         [Route("Admin/Products/Edit/{id}")]
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
             var product = productService.GetProductById(id);
             var category = categoryService.GetCategories();
             var size=sizeService.GetSize();
             var color = colorService.GetColor();
             ProductViewModel model = new ProductViewModel();
-            model.Id = product.Id;
+            model.Id = id;
             model.Name = product.Name;
             model.Description = product.Description;
             model.Quantity = product.Quantity;
@@ -96,19 +103,7 @@ namespace WebM.Controllers.Admin
             model.Colors = color;
             model.MainImage = product.MainImage;
 
-            //if(model.MainImageFile.Length > 0)
-            //{
-            //    var wwwroot = this.webHostEnvironment.WebRootPath;
-            //    var dir = Path.Combine(wwwroot, "images");
-            //    var extention = System.IO.Path.GetExtension(model.MainImageFile.FileName);
-            //    var filename = Guid.NewGuid().ToString() + extention;
-            //    var fullFilePath = Path.Combine(dir, filename);
-            //    using(var fileStream=new FileStream(fullFilePath,FileMode.Create))
-            //    {
-            //        await model.MainImageFile.CopyToAsync(fileStream);
-            //    }
-            //}
-            
+           
             
             return View("~/Views/Admin/Products/Edit.cshtml", model);
         }
@@ -148,6 +143,28 @@ namespace WebM.Controllers.Admin
                 productService.UpdateProduct(model);
 
             return Redirect("/Admin/Products");
+
+            //string filePath = String.Empty;or ="no-image.png"
+            //if (productModel.MainImage != null)
+            //{
+            //    filePath = await UploadFile(productModel.MainImage);
+            //}
+
+            //Product product = new Product
+            //{
+            //    Name = productModel.Name,
+            //    Description = productModel.Description,
+            //    Quantity = productModel.Quantity,
+            //    Price = productModel.Price,
+            //    MainImage = filePath,
+            //    CategoryId = productModel.CategoryId,
+            //    ColorId = productModel.ColorId,
+            //    SizeId = productModel.SizeId
+            //};
+
+            //this.productService.UpdateProduct(id, product);
+
+            //return Redirect("/Admin/Products");
         }
         [HttpGet]
         [Route("Admin/Products/Delete/{id}")]
@@ -157,5 +174,17 @@ namespace WebM.Controllers.Admin
 
             return Redirect("/Admin/Products");
         }
+        //private async Task<string> UploadFile(IFormFile file)
+        //{
+        //    var uniqueFileName = Guid.NewGuid() + "-" + file.FileName;
+        //    var filePath = Path.Combine("wwwroot", "img", "products", uniqueFileName);
+
+        //    using (var stream = System.IO.File.Create(filePath))
+        //    {
+        //        await file.CopyToAsync(stream);
+        //    }
+
+        //    return uniqueFileName;
+        //}
     }
 }

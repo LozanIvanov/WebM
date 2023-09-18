@@ -30,7 +30,9 @@ namespace Web.Dal.Services
         }
         public Product GetProductById(int id)
         {
-            return dbContext.Products.Where(x => x.Id == id).FirstOrDefault();
+            return dbContext.Products.Where(x => x.Id == id)
+                .Include(x => x.Category)
+                .FirstOrDefault();
         }
         public void UpdateProduct(Product product)
         {
