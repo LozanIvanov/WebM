@@ -115,6 +115,7 @@ namespace WebM.Controllers.Admin
            
             model.Id = id;
             model.Name = product.Name;
+
             model.Description = product.Description;
             model.Quantity = product.Quantity;
             model.Price = product.Price;
