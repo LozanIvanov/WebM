@@ -20,9 +20,17 @@ namespace Web.Dal.Services
             dbContext.Products.Add(product);
             dbContext.SaveChanges();
         }
-        public List<Product>GetProducts()
+        public List<Product>GetProducts(decimal minPrice = 0, decimal maxPrice = 0)
         {
             var query = this.dbContext.Products.AsQueryable();
+            if(maxPrice>0)
+            {
+                query = query.Where(p => p.Price <= maxPrice);
+            }
+            if(minPrice>0)
+            {
+                query=query.Where(p=>p.Price>=minPrice);    
+            }
             return query
               .Include(p => p.Category)
               .Include(p => p.Color)
