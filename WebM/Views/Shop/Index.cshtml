@@ -2,6 +2,16 @@
 	ViewData["Title"] = "Products Page";
 }
 @model List<Web.Database.Models.Product>
+<script>
+	function filterByPrice() {
+		let value = document.querySelector('input[name="price-filter"]:checked').value;
+
+		document.querySelector('input[name="minPrice"]').value = value.split(',')[0];
+		document.querySelector('input[name="maxPrice"]').value = value.split(',')[1];
+
+		document.getElementById("shop-form").submit();
+	}
+</script>
 
 
 <!-- Shop Start -->
@@ -12,8 +22,11 @@
 			<!-- Price Start -->
 			<div class="border-bottom mb-4 pb-4">
 				<h5 class="font-weight-semi-bold mb-4">Filter by price</h5>
-				<form  method="GET">
-					
+				<form id="shop-form" method="GET">
+					<div class="input-group">
+						<input name="minPrice" class="form-control" placeholder="Min Price">
+						<input name="maxPrice" class="form-control" placeholder="Max Price">
+					</div>
 					<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
 						<input type="radio" name="price-filter" value="0,0" onclick="filterByPrice()" class="custom-control-input" checked id="price-all">
 						<label class="custom-control-label" for="price-all">All Price</label>
