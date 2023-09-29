@@ -11,6 +11,13 @@ namespace WebM.Controllers
         {
             this.service = service;
         }
+        [Route("/Shop/Details/{id}")]
+        public IActionResult Details(int id)
+        {
+            var product = this.service.GetProductById(id);
+
+            return View("~/Views/Shop/Details.cshtml", product);
+        }
         public IActionResult Index(decimal minPrice = 0, decimal maxPrice = 0)
         {
             var products = this.service.GetProducts(minPrice, maxPrice);
