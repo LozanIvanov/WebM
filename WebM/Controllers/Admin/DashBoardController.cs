@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebM.Controllers.Admin
 {
     [Route("/Admin/Dashboard")]
-    [Authorize(Roles="Admin")]
+    [Authorize(Roles="Admin,Manager")]
     public class DashBoardController : Controller
     {
         public IActionResult Index()

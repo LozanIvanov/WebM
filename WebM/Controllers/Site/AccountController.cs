@@ -39,6 +39,10 @@ namespace WebM.Controllers.Site
             {
                 return Redirect("/Admin/Dashboard");
             }
+            if (roles.Contains("Manager"))
+            {
+                return Redirect("/Admin/Products");
+            }
             return Redirect("/");
         }
         [Route("register")]
