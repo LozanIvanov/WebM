@@ -11,6 +11,7 @@ namespace Web.Dal.Services
 {
     public class ProductService : BaseService
     {
+        private int perPage = 3;
         public ProductService(IConfiguration configuration) : base(configuration)
         {
         }
@@ -20,8 +21,9 @@ namespace Web.Dal.Services
             dbContext.Products.Add(product);
             dbContext.SaveChanges();
         }
-        public List<Product>GetProducts(decimal minPrice = 0, decimal maxPrice = 0)
+        public List<Product>GetProducts(int? pageNullable, decimal minPrice = 0, decimal maxPrice = 0 )
         {
+            int page=pageNullable !=null ? pageNullable.Value : 1;
             var query = this.dbContext.Products.AsQueryable();
             if(maxPrice>0)
             {
@@ -31,10 +33,16 @@ namespace Web.Dal.Services
             {
                 query=query.Where(p=>p.Price>=minPrice);    
             }
-            return query
+            return query.Skip((page-1)*this.perPage)
+                .Take(this.perPage)
               .Include(p => p.Category)
               .Include(p => p.Color)
               .Include(p => p.Size).ToList();
+        }
+        public int GetTotalPages()
+        {
+            double count = this.dbContext.Products.Count();
+            return (int) Math.Ceiling(count / this.perPage);
         }
         public Product GetProductById(int id)
         {

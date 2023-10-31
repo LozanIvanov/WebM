@@ -1,4 +1,4 @@
-﻿@model List<Web.Database.Models.Product>
+﻿@model Web.Dal.Models.Admin.ProductViewModel
 @{
     Layout = "~/Views/SharedAdmin/_AdminLayout.cshtml";
 }
@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.ListProducts)
                 {
                     <tr>
                         <td>@item.Name</td>
@@ -32,8 +32,9 @@
                             @if (item.MainImage != null)
                             {
                                // <img src="@item.MainImage" style=" width: 100px; height: 100px">
-                                <img class="table-image"src="@item.MainImage" style=" width: 100px; height: 100px">
+                                <img class="table-image"src="/images/@item.MainImage" style=" width: 100px; height: 100px">
                             }
+                            
                         </td>
                         <td>@item.Color.Name</td>
                         <td>@item.Size.Name</td>
@@ -45,5 +46,22 @@
                 }
             </tbody>
         </table>
+        <div>
+           
+             <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                              </a>
+            @for (int i = 1 ; i <= Model.TotalPages; i++)
+            {
+              
+                <a @(i == Model.CurrentPage ? "style=color:red;":"") href="/Admin/Products?page=@i">@i</a>
+                
+            }
+            <a class="page-link" href="/Admin/Products?page=i" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                              </a>
+        </div>
     </div>
 </div>

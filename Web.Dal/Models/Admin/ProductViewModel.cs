@@ -30,12 +30,17 @@ namespace Web.Dal.Models.Admin
         public List<Category> Categories { get; set; }
         public List<Size> Sizes { get; set; }
         public List<Color> Colors { get; set; }
+        public List<Product> ListProducts { get; set; }
+
+        public int TotalPages { get; set; }
+        public int CurrentPage { get; set; }
 
         public ProductViewModel()
          {
             Categories = new List<Category>();
             Sizes = new List<Size>();
             Colors = new List<Color>();
+            ListProducts = new List<Product>();
         }
     }
 }

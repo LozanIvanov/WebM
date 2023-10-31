@@ -18,9 +18,9 @@ namespace WebM.Controllers
 
             return View("~/Views/Shop/Details.cshtml", product);
         }
-        public IActionResult Index(decimal minPrice = 0, decimal maxPrice = 0)
+        public IActionResult Index(int? page,decimal minPrice = 0, decimal maxPrice = 0)
         {
-            var products = this.service.GetProducts(minPrice, maxPrice);
+            var products = this.service.GetProducts( page,minPrice, maxPrice);
 
             return View("~/Views/Shop/index.cshtml", products);
         }

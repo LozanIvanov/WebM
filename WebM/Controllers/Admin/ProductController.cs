@@ -24,11 +24,18 @@ namespace WebM.Controllers.Admin
             this.colorService = colorService;
             this.sizeService=sizeService;
         }
-          [Route("Admin/Products")]
-          [HttpGet]
-        public IActionResult Index()
+        [Route("Admin/Products")]
+        [HttpGet]
+        public IActionResult Index(int? page)
         {
-            var result = productService.GetProducts();
+            var result = new ProductViewModel()
+            {
+                ListProducts = this.productService.GetProducts(page),
+                TotalPages = this.productService.GetTotalPages(),
+                CurrentPage = page != null ? page.Value : 1
+            };
+           
+
             return View("~/Views/Admin/Products/Index.cshtml",result);
         }
         [HttpGet]
@@ -46,11 +53,11 @@ namespace WebM.Controllers.Admin
         [Route("Admin/Products/Create")]
         public async Task<IActionResult> Create(ProductViewModel product)
         {
-            //string filePath="no-image.png";
-            //if (product.MainImage != null)
-            //{
-            //    filePath=await UploadFile(product.MainImage)
-            //}
+            string filePath="no-image.png";
+            if (product.MainImageFile != null)
+            {
+                filePath = await UploadFile(product.MainImageFile);
+            }
             var p = new Product();
             p.Name = product.Name;
             p.Description = product.Description;
@@ -59,24 +66,25 @@ namespace WebM.Controllers.Admin
             p.CategoryId = product.CategoryId;
             p.SizeId = product.SizeId;
             p.ColorId = product.ColorId;
-            if (product.MainImageFile!=null && product.MainImageFile.Length > 0)
-            {
-                var wwwroot = this.webHostEnvironment.WebRootPath;
-                var dir = Path.Combine(wwwroot, "images");
-                //wwwroot/images
-                //.jpg
-              var extension = System.IO.Path.GetExtension(product.MainImageFile.FileName);
-               //randomname.product
-               var fileName = Guid.NewGuid().ToString() + extension;
-               //F:/WebStore/..../randomname.jpg
-               var fullFilePath = Path.Combine(dir, fileName);
-               using (var fileStream = new FileStream(fullFilePath, FileMode.Create))
-               {
-                    await product.MainImageFile.CopyToAsync(fileStream);
-               }
+            p.MainImage = filePath;
+            //if (product.MainImageFile!=null && product.MainImageFile.Length > 0)
+            //{
+            //    var wwwroot = this.webHostEnvironment.WebRootPath;
+            //    var dir = Path.Combine(wwwroot, "images");
+            //    //wwwroot/images
+            //    //.jpg
+            //  var extension = System.IO.Path.GetExtension(product.MainImageFile.FileName);
+            //   //randomname.product
+            //   var fileName = Guid.NewGuid().ToString() + extension;
+            //   //F:/WebStore/..../randomname.jpg
+            //   var fullFilePath = Path.Combine(dir, fileName);
+            //   using (var fileStream = new FileStream(fullFilePath, FileMode.Create))
+            //   {
+            //        await product.MainImageFile.CopyToAsync(fileStream);
+            //   }
 
-               p.MainImage = "/images/" + fileName;
-            }
+            //   p.MainImage = "/images/" + fileName;
+            //}
             productService.Store(p);
             return Redirect("/Admin/Products");
         }
@@ -175,17 +183,17 @@ namespace WebM.Controllers.Admin
 
             return Redirect("/Admin/Products");
         }
-        //private async Task<string> UploadFile(IFormFile file)
-        //{
-        //    var uniqueFileName = Guid.NewGuid() + "-" + file.FileName;
-        //    var filePath = Path.Combine("wwwroot", "img", "products", uniqueFileName);
+        private async Task<string> UploadFile(IFormFile file)
+        {
+           var uniqueFileName = Guid.NewGuid() + "-" + file.FileName;
+           var filePath = Path.Combine("wwwroot", "images", uniqueFileName);
 
-        //    using (var stream = System.IO.File.Create(filePath))
-        //    {
-        //        await file.CopyToAsync(stream);
-        //    }
+           using (var stream = System.IO.File.Create(filePath))
+           {
+                await file.CopyToAsync(stream);
+           }
 
-        //    return uniqueFileName;
-        //}
+           return uniqueFileName;
+        }
     }
 }
