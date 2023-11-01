@@ -1,7 +1,8 @@
-﻿﻿@{
+﻿@using Web.Dal.Models.Admin;
+@model ProductViewModel;
+﻿@{
 	ViewData["Title"] = "Products Page";
 }
-@model List<Web.Database.Models.Product>
 <script>
 	function filterByPrice() {
 		let value = document.querySelector('input[name="price-filter"]:checked').value;
@@ -170,12 +171,12 @@
 					</div>
 				</div>
 				<!-- Products List Start -->
-				@foreach (var product in Model)
+				@foreach (var product in Model.ListProducts)
 				{
 						<div class="col-lg-4 col-md-6 col-sm-12 pb-1">
 							<div class="card product-item border-0 mb-4">
 								<div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-									<img class="img-fluid w-100" src="/img/products/@product.MainImage" alt="">
+									<img class="img-fluid w-100" src="/images/@product.MainImage" width="50" height="50" alt="">
 								</div>
 								<div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
 									<h6 class="text-truncate mb-3">@product.Name</h6>
@@ -192,6 +193,27 @@
 				}
 				<!-- Products List End -->
 				<div class="col-12 pb-1">
+					
+                <div>
+
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+
+                        <a @(i == Model.CurrentPage ? "style=color:red;":"") href="/Shop/?page=@i"  >@i</a>
+
+                    }
+                    <a class="page-link" href="/Admin/Products?page=i" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+			
+				</div>
+			@*	<div class="col-12 pb-1">
 					<nav aria-label="Page navigation">
 						<ul class="pagination justify-content-center mb-3">
 						<li class="page-item disabled">
@@ -211,7 +233,7 @@
 						</li>
 						</ul>
 					</nav>
-				</div>
+				</div>*@
 			</div>
 		</div>
 		<!-- Shop Product End -->
